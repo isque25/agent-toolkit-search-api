@@ -1,15 +1,3 @@
-# AgentToolkit
-
-Types:
-
-```python
-from agent_toolkit.types import RetrieveResponse
-```
-
-Methods:
-
-- <code title="get /">client.<a href="./src/agent_toolkit/_client.py">retrieve</a>() -> <a href="./src/agent_toolkit/types/retrieve_response.py">object</a></code>
-
 # API
 
 ## V1

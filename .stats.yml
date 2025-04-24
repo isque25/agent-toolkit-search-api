@@ -1,4 +1,4 @@
-configured_endpoints: 5
-openapi_spec_url: https://storage.googleapis.com/stainless-sdk-openapi-specs/agent-toolkit%2Fagent-toolkit-8f897d501d84be1ecbc3a954e4100b3e84be8f6fcad5a9ca7640ec24e5e6d810.yml
-openapi_spec_hash: f503ba1836d0dc7c8de13f0849a72f80
+configured_endpoints: 4
+openapi_spec_url: https://storage.googleapis.com/stainless-sdk-openapi-specs/agent-toolkit%2Fagent-toolkit-5fcf444bc597268a0603313670fff6e27fd2444bf1b402ce5d04627f333b52b8.yml
+openapi_spec_hash: b8edb24afdcba416effa473ff19bd2ce
 config_hash: 0ac53a0b6a9f5d7d0852654b2c5154ac

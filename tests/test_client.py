@@ -25,7 +25,7 @@ from agent_toolkit import AgentToolkit, AsyncAgentToolkit, APIResponseValidation
 from agent_toolkit._types import Omit
 from agent_toolkit._models import BaseModel, FinalRequestOptions
 from agent_toolkit._constants import RAW_RESPONSE_HEADER
-from agent_toolkit._exceptions import APIStatusError, APITimeoutError, APIResponseValidationError
+from agent_toolkit._exceptions import APIStatusError, APITimeoutError, AgentToolkitError, APIResponseValidationError
 from agent_toolkit._base_client import (
     DEFAULT_TIMEOUT,
     HTTPX_DEFAULT_TIMEOUT,
@@ -333,6 +333,16 @@ class TestAgentToolkit:
         request = client2._build_request(FinalRequestOptions(method="get", url="/foo"))
         assert request.headers.get("x-foo") == "stainless"
         assert request.headers.get("x-stainless-lang") == "my-overriding-header"
+
+    def test_validate_headers(self) -> None:
+        client = AgentToolkit(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
+        assert request.headers.get("X-API-Key") == api_key
+
+        with pytest.raises(AgentToolkitError):
+            with update_env(**{"AGENT_TOOLKIT_API_KEY": Omit()}):
+                client2 = AgentToolkit(base_url=base_url, api_key=None, _strict_response_validation=True)
+            _ = client2
 
     def test_default_query_option(self) -> None:
         client = AgentToolkit(
@@ -1093,6 +1103,16 @@ class TestAsyncAgentToolkit:
         request = client2._build_request(FinalRequestOptions(method="get", url="/foo"))
         assert request.headers.get("x-foo") == "stainless"
         assert request.headers.get("x-stainless-lang") == "my-overriding-header"
+
+    def test_validate_headers(self) -> None:
+        client = AsyncAgentToolkit(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
+        assert request.headers.get("X-API-Key") == api_key
+
+        with pytest.raises(AgentToolkitError):
+            with update_env(**{"AGENT_TOOLKIT_API_KEY": Omit()}):
+                client2 = AsyncAgentToolkit(base_url=base_url, api_key=None, _strict_response_validation=True)
+            _ = client2
 
     def test_default_query_option(self) -> None:
         client = AsyncAgentToolkit(

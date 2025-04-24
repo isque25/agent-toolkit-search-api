@@ -27,9 +27,12 @@ pip install git+ssh://git@github.com/isque25/agent-toolkit-search-api.git
 The full API of this library can be found in [api.md](api.md).
 
 ```python
+import os
 from agent_toolkit import AgentToolkit
 
-client = AgentToolkit()
+client = AgentToolkit(
+    api_key=os.environ.get("AGENT_TOOLKIT_API_KEY"),  # This is the default and can be omitted
+)
 
 response = client.api.v1.search(
     query="REPLACE_ME",
@@ -47,10 +50,13 @@ so that your API Key is not stored in source control.
 Simply import `AsyncAgentToolkit` instead of `AgentToolkit` and use `await` with each API call:
 
 ```python
+import os
 import asyncio
 from agent_toolkit import AsyncAgentToolkit
 
-client = AsyncAgentToolkit()
+client = AsyncAgentToolkit(
+    api_key=os.environ.get("AGENT_TOOLKIT_API_KEY"),  # This is the default and can be omitted
+)
 
 
 async def main() -> None:

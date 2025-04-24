@@ -12,10 +12,7 @@ from . import _exceptions
 from ._qs import Querystring
 from ._types import (
     NOT_GIVEN,
-    Body,
     Omit,
-    Query,
-    Headers,
     Timeout,
     NotGiven,
     Transport,
@@ -24,19 +21,12 @@ from ._types import (
 )
 from ._utils import is_given, get_async_library
 from ._version import __version__
-from ._response import (
-    to_raw_response_wrapper,
-    to_streamed_response_wrapper,
-    async_to_raw_response_wrapper,
-    async_to_streamed_response_wrapper,
-)
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
 from ._exceptions import APIStatusError, AgentToolkitError
 from ._base_client import (
     DEFAULT_MAX_RETRIES,
     SyncAPIClient,
     AsyncAPIClient,
-    make_request_options,
 )
 from .resources.api import api
 
@@ -185,25 +175,6 @@ class AgentToolkit(SyncAPIClient):
     # Alias for `copy` for nicer inline usage, e.g.
     # client.with_options(timeout=10).foo.create(...)
     with_options = copy
-
-    def retrieve(
-        self,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> object:
-        """Root"""
-        return self.get(
-            "/",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=object,
-        )
 
     @override
     def _make_status_error(
@@ -373,25 +344,6 @@ class AsyncAgentToolkit(AsyncAPIClient):
     # client.with_options(timeout=10).foo.create(...)
     with_options = copy
 
-    async def retrieve(
-        self,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> object:
-        """Root"""
-        return await self.get(
-            "/",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=object,
-        )
-
     @override
     def _make_status_error(
         self,
@@ -430,36 +382,20 @@ class AgentToolkitWithRawResponse:
     def __init__(self, client: AgentToolkit) -> None:
         self.api = api.APIResourceWithRawResponse(client.api)
 
-        self.retrieve = to_raw_response_wrapper(
-            client.retrieve,
-        )
-
 
 class AsyncAgentToolkitWithRawResponse:
     def __init__(self, client: AsyncAgentToolkit) -> None:
         self.api = api.AsyncAPIResourceWithRawResponse(client.api)
-
-        self.retrieve = async_to_raw_response_wrapper(
-            client.retrieve,
-        )
 
 
 class AgentToolkitWithStreamedResponse:
     def __init__(self, client: AgentToolkit) -> None:
         self.api = api.APIResourceWithStreamingResponse(client.api)
 
-        self.retrieve = to_streamed_response_wrapper(
-            client.retrieve,
-        )
-
 
 class AsyncAgentToolkitWithStreamedResponse:
     def __init__(self, client: AsyncAgentToolkit) -> None:
         self.api = api.AsyncAPIResourceWithStreamingResponse(client.api)
-
-        self.retrieve = async_to_streamed_response_wrapper(
-            client.retrieve,
-        )
 
 
 Client = AgentToolkit

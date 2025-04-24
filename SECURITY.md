@@ -20,7 +20,7 @@ or products provided by Agent Toolkit please follow the respective company's sec
 
 ### Agent Toolkit Terms and Policies
 
-Please contact adam@agenttoolkit.ai for any questions or concerns regarding security of our services.
+Please contact support@agenttoolkit.ai for any questions or concerns regarding security of our services.
 
 ---
 

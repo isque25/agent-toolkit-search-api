@@ -5,7 +5,7 @@ description = "The official Python library for the agent-toolkit API"
 dynamic = ["readme"]
 license = "MIT"
 authors = [
-{ name = "Agent Toolkit", email = "adam@agenttoolkit.ai" },
+{ name = "Agent Toolkit", email = "support@agenttoolkit.ai" },
 ]
 dependencies = [
     "httpx>=0.23.0, <1",

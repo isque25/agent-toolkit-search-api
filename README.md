@@ -27,11 +27,10 @@ pip install git+ssh://git@github.com/isque25/agent-toolkit-search-api.git
 The full API of this library can be found in [api.md](api.md).
 
 ```python
-import os
 from agent_toolkit import AgentToolkit
 
 client = AgentToolkit(
-    api_key=os.environ.get("AGENT_TOOLKIT_API_KEY"),  # This is the default and can be omitted
+    api_key="My API Key",
 )
 
 response = client.api.v1.search(
@@ -40,22 +39,16 @@ response = client.api.v1.search(
 print(response.query)
 ```
 
-While you can provide an `api_key` keyword argument,
-we recommend using [python-dotenv](https://pypi.org/project/python-dotenv/)
-to add `AGENT_TOOLKIT_API_KEY="My API Key"` to your `.env` file
-so that your API Key is not stored in source control.
-
 ## Async usage
 
 Simply import `AsyncAgentToolkit` instead of `AgentToolkit` and use `await` with each API call:
 
 ```python
-import os
 import asyncio
 from agent_toolkit import AsyncAgentToolkit
 
 client = AsyncAgentToolkit(
-    api_key=os.environ.get("AGENT_TOOLKIT_API_KEY"),  # This is the default and can be omitted
+    api_key="My API Key",
 )
 
 
@@ -93,7 +86,9 @@ All errors inherit from `agent_toolkit.APIError`.
 import agent_toolkit
 from agent_toolkit import AgentToolkit
 
-client = AgentToolkit()
+client = AgentToolkit(
+    api_key="My API Key",
+)
 
 try:
     client.api.v1.search(
@@ -136,6 +131,7 @@ from agent_toolkit import AgentToolkit
 
 # Configure the default for all requests:
 client = AgentToolkit(
+    api_key="My API Key",
     # default is 2
     max_retries=0,
 )
@@ -156,12 +152,14 @@ from agent_toolkit import AgentToolkit
 
 # Configure the default for all requests:
 client = AgentToolkit(
+    api_key="My API Key",
     # 20 seconds (default is 1 minute)
     timeout=20.0,
 )
 
 # More granular control:
 client = AgentToolkit(
+    api_key="My API Key",
     timeout=httpx.Timeout(60.0, read=5.0, write=10.0, connect=2.0),
 )
 
@@ -208,7 +206,9 @@ The "raw" Response object can be accessed by prefixing `.with_raw_response.` to 
 ```py
 from agent_toolkit import AgentToolkit
 
-client = AgentToolkit()
+client = AgentToolkit(
+    api_key="My API Key",
+)
 response = client.api.v1.with_raw_response.search(
     query="REPLACE_ME",
 )
@@ -287,6 +287,7 @@ import httpx
 from agent_toolkit import AgentToolkit, DefaultHttpxClient
 
 client = AgentToolkit(
+    api_key="My API Key",
     # Or use the `AGENT_TOOLKIT_BASE_URL` env var
     base_url="http://my.test.server.example.com:8083",
     http_client=DefaultHttpxClient(
@@ -309,7 +310,9 @@ By default the library closes underlying HTTP connections whenever the client is
 ```py
 from agent_toolkit import AgentToolkit
 
-with AgentToolkit() as client:
+with AgentToolkit(
+    api_key="My API Key",
+) as client:
   # make requests here
   ...
 

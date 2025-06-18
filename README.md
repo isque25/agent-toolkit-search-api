@@ -1,6 +1,6 @@
 # Agent Toolkit Python API library
 
-[![PyPI version](https://img.shields.io/pypi/v/agent_toolkit.svg)](https://pypi.org/project/agent_toolkit/)
+[![PyPI version](<https://img.shields.io/pypi/v/agent_toolkit.svg?label=pypi%20(stable)>)](https://pypi.org/project/agent_toolkit/)
 
 The Agent Toolkit Python library provides convenient access to the Agent Toolkit REST API from any Python 3.8+
 application. The library includes type definitions for all request params and response fields,

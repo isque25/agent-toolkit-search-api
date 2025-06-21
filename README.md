@@ -64,6 +64,39 @@ asyncio.run(main())
 
 Functionality between the synchronous and asynchronous clients is otherwise identical.
 
+### With aiohttp
+
+By default, the async client uses `httpx` for HTTP requests. However, for improved concurrency performance you may also use `aiohttp` as the HTTP backend.
+
+You can enable this by installing `aiohttp`:
+
+```sh
+# install from the production repo
+pip install 'agent_toolkit[aiohttp] @ git+ssh://git@github.com/isque25/agent-toolkit-search-api.git'
+```
+
+Then you can enable it by instantiating the client with `http_client=DefaultAioHttpClient()`:
+
+```python
+import asyncio
+from agent_toolkit import DefaultAioHttpClient
+from agent_toolkit import AsyncAgentToolkit
+
+
+async def main() -> None:
+    async with AsyncAgentToolkit(
+        api_key="My API Key",
+        http_client=DefaultAioHttpClient(),
+    ) as client:
+        response = await client.api.v1.search(
+            query="REPLACE_ME",
+        )
+        print(response.query)
+
+
+asyncio.run(main())
+```
+
 ## Using types
 
 Nested request parameters are [TypedDicts](https://docs.python.org/3/library/typing.html#typing.TypedDict). Responses are [Pydantic models](https://docs.pydantic.dev) which also provide helper methods for things like:

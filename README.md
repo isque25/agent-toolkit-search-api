@@ -20,7 +20,7 @@ pip install git+ssh://git@github.com/isque25/agent-toolkit-search-api.git
 ```
 
 > [!NOTE]
-> Once this package is [published to PyPI](https://app.stainless.com/docs/guides/publish), this will become: `pip install --pre agent_toolkit`
+> Once this package is [published to PyPI](https://www.stainless.com/docs/guides/publish), this will become: `pip install --pre agent_toolkit`
 
 ## Usage
 

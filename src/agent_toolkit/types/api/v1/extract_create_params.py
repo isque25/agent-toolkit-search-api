@@ -2,14 +2,15 @@
 
 from __future__ import annotations
 
-from typing import List
 from typing_extensions import Literal, Required, TypedDict
+
+from ...._types import SequenceNotStr
 
 __all__ = ["ExtractCreateParams"]
 
 
 class ExtractCreateParams(TypedDict, total=False):
-    urls: Required[List[str]]
+    urls: Required[SequenceNotStr[str]]
     """List of URLs to extract content from."""
 
     extract_depth: Literal["basic", "advanced"]

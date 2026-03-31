@@ -8,6 +8,8 @@ __all__ = ["V1GetCreditsResponse"]
 
 
 class V1GetCreditsResponse(BaseModel):
+    """Schema for the credit usage response."""
+
     days_until_reset: int
 
     free_credits: int

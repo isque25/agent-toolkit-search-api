@@ -8,6 +8,8 @@ __all__ = ["ExtractResponse", "FailedResult", "Result"]
 
 
 class FailedResult(BaseModel):
+    """Schema for a failed extraction result."""
+
     error: str
     """Error message describing why the URL couldn't be processed."""
 
@@ -16,6 +18,8 @@ class FailedResult(BaseModel):
 
 
 class Result(BaseModel):
+    """Schema for a successful extraction result."""
+
     raw_content: str
     """The full content extracted from the page."""
 
@@ -33,6 +37,8 @@ class Result(BaseModel):
 
 
 class ExtractResponse(BaseModel):
+    """Schema for extract response."""
+
     response_time: float
     """Time in seconds it took to complete the request."""
 

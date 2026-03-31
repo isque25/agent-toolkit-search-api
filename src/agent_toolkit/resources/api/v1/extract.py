@@ -2,12 +2,11 @@
 
 from __future__ import annotations
 
-from typing import List
 from typing_extensions import Literal
 
 import httpx
 
-from ...._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from ...._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from ...._utils import maybe_transform, async_maybe_transform
 from ...._compat import cached_property
 from ...._resource import SyncAPIResource, AsyncAPIResource
@@ -47,16 +46,16 @@ class ExtractResource(SyncAPIResource):
     def create(
         self,
         *,
-        urls: List[str],
-        extract_depth: Literal["basic", "advanced"] | NotGiven = NOT_GIVEN,
-        include_images: bool | NotGiven = NOT_GIVEN,
-        include_links: bool | NotGiven = NOT_GIVEN,
+        urls: SequenceNotStr[str],
+        extract_depth: Literal["basic", "advanced"] | Omit = omit,
+        include_images: bool | Omit = omit,
+        include_links: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ExtractResponse:
         """
         Extract content from one or more URLs using Selenium.
@@ -104,15 +103,15 @@ class ExtractResource(SyncAPIResource):
         self,
         *,
         url: str,
-        extract_depth: str | NotGiven = NOT_GIVEN,
-        include_images: bool | NotGiven = NOT_GIVEN,
-        include_links: bool | NotGiven = NOT_GIVEN,
+        extract_depth: str | Omit = omit,
+        include_images: bool | Omit = omit,
+        include_links: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ExtractResponse:
         """
         Extract content from a URL using Selenium (GET method).
@@ -184,16 +183,16 @@ class AsyncExtractResource(AsyncAPIResource):
     async def create(
         self,
         *,
-        urls: List[str],
-        extract_depth: Literal["basic", "advanced"] | NotGiven = NOT_GIVEN,
-        include_images: bool | NotGiven = NOT_GIVEN,
-        include_links: bool | NotGiven = NOT_GIVEN,
+        urls: SequenceNotStr[str],
+        extract_depth: Literal["basic", "advanced"] | Omit = omit,
+        include_images: bool | Omit = omit,
+        include_links: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ExtractResponse:
         """
         Extract content from one or more URLs using Selenium.
@@ -241,15 +240,15 @@ class AsyncExtractResource(AsyncAPIResource):
         self,
         *,
         url: str,
-        extract_depth: str | NotGiven = NOT_GIVEN,
-        include_images: bool | NotGiven = NOT_GIVEN,
-        include_links: bool | NotGiven = NOT_GIVEN,
+        extract_depth: str | Omit = omit,
+        include_images: bool | Omit = omit,
+        include_links: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ExtractResponse:
         """
         Extract content from a URL using Selenium (GET method).

@@ -18,13 +18,13 @@ base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 class TestV1:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_get_credits(self, client: AgentToolkit) -> None:
         v1 = client.api.v1.get_credits()
         assert_matches_type(V1GetCreditsResponse, v1, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_get_credits(self, client: AgentToolkit) -> None:
         response = client.api.v1.with_raw_response.get_credits()
@@ -34,7 +34,7 @@ class TestV1:
         v1 = response.parse()
         assert_matches_type(V1GetCreditsResponse, v1, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_get_credits(self, client: AgentToolkit) -> None:
         with client.api.v1.with_streaming_response.get_credits() as response:
@@ -46,7 +46,7 @@ class TestV1:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_search(self, client: AgentToolkit) -> None:
         v1 = client.api.v1.search(
@@ -54,7 +54,7 @@ class TestV1:
         )
         assert_matches_type(V1SearchResponse, v1, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_search_with_all_params(self, client: AgentToolkit) -> None:
         v1 = client.api.v1.search(
@@ -77,7 +77,7 @@ class TestV1:
         )
         assert_matches_type(V1SearchResponse, v1, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_search(self, client: AgentToolkit) -> None:
         response = client.api.v1.with_raw_response.search(
@@ -89,7 +89,7 @@ class TestV1:
         v1 = response.parse()
         assert_matches_type(V1SearchResponse, v1, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_search(self, client: AgentToolkit) -> None:
         with client.api.v1.with_streaming_response.search(
@@ -109,13 +109,13 @@ class TestAsyncV1:
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_get_credits(self, async_client: AsyncAgentToolkit) -> None:
         v1 = await async_client.api.v1.get_credits()
         assert_matches_type(V1GetCreditsResponse, v1, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_get_credits(self, async_client: AsyncAgentToolkit) -> None:
         response = await async_client.api.v1.with_raw_response.get_credits()
@@ -125,7 +125,7 @@ class TestAsyncV1:
         v1 = await response.parse()
         assert_matches_type(V1GetCreditsResponse, v1, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_get_credits(self, async_client: AsyncAgentToolkit) -> None:
         async with async_client.api.v1.with_streaming_response.get_credits() as response:
@@ -137,7 +137,7 @@ class TestAsyncV1:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_search(self, async_client: AsyncAgentToolkit) -> None:
         v1 = await async_client.api.v1.search(
@@ -145,7 +145,7 @@ class TestAsyncV1:
         )
         assert_matches_type(V1SearchResponse, v1, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_search_with_all_params(self, async_client: AsyncAgentToolkit) -> None:
         v1 = await async_client.api.v1.search(
@@ -168,7 +168,7 @@ class TestAsyncV1:
         )
         assert_matches_type(V1SearchResponse, v1, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_search(self, async_client: AsyncAgentToolkit) -> None:
         response = await async_client.api.v1.with_raw_response.search(
@@ -180,7 +180,7 @@ class TestAsyncV1:
         v1 = await response.parse()
         assert_matches_type(V1SearchResponse, v1, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_search(self, async_client: AsyncAgentToolkit) -> None:
         async with async_client.api.v1.with_streaming_response.search(

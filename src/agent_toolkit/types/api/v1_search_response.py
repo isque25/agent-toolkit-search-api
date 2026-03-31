@@ -9,6 +9,8 @@ __all__ = ["V1SearchResponse", "Result"]
 
 
 class Result(BaseModel):
+    """Schema for a single search result"""
+
     snippet: str
     """A clean summary or snippet from the search result"""
 
@@ -41,6 +43,8 @@ class Result(BaseModel):
 
 
 class V1SearchResponse(BaseModel):
+    """Schema for the search response"""
+
     query: str
     """The search query that was processed"""
 

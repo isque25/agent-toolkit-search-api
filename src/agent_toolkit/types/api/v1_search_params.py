@@ -2,10 +2,11 @@
 
 from __future__ import annotations
 
-from typing import List, Union, Optional
+from typing import Union, Optional
 from datetime import date
 from typing_extensions import Literal, Required, Annotated, TypedDict
 
+from ..._types import SequenceNotStr
 from ..._utils import PropertyInfo
 
 __all__ = ["V1SearchParams"]
@@ -24,16 +25,16 @@ class V1SearchParams(TypedDict, total=False):
     crawl_start_date: Annotated[Union[str, date, None], PropertyInfo(format="iso8601")]
     """Start date for crawled content (YYYY-MM-DD)"""
 
-    exclude_domains: Optional[List[str]]
+    exclude_domains: Optional[SequenceNotStr[str]]
     """Domains to exclude from search results"""
 
-    exclude_terms: Optional[List[str]]
+    exclude_terms: Optional[SequenceNotStr[str]]
     """Terms that must be excluded from search results"""
 
-    include_domains: Optional[List[str]]
+    include_domains: Optional[SequenceNotStr[str]]
     """Domains to include in search results"""
 
-    include_terms: Optional[List[str]]
+    include_terms: Optional[SequenceNotStr[str]]
     """Terms that must be included in search results"""
 
     language: Optional[str]

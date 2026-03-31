@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import List, Union, Optional
+from typing import Union, Optional
 from datetime import date
 from typing_extensions import Literal
 
@@ -16,7 +16,7 @@ from .extract import (
     ExtractResourceWithStreamingResponse,
     AsyncExtractResourceWithStreamingResponse,
 )
-from ...._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from ...._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from ...._utils import maybe_transform, async_maybe_transform
 from ...._compat import cached_property
 from ...._resource import SyncAPIResource, AsyncAPIResource
@@ -66,7 +66,7 @@ class V1Resource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> V1GetCreditsResponse:
         """
         Get current credit usage and limits for the authenticated user.
@@ -85,27 +85,27 @@ class V1Resource(SyncAPIResource):
         self,
         *,
         query: str,
-        country: Optional[str] | NotGiven = NOT_GIVEN,
-        crawl_end_date: Union[str, date, None] | NotGiven = NOT_GIVEN,
-        crawl_start_date: Union[str, date, None] | NotGiven = NOT_GIVEN,
-        exclude_domains: Optional[List[str]] | NotGiven = NOT_GIVEN,
-        exclude_terms: Optional[List[str]] | NotGiven = NOT_GIVEN,
-        include_domains: Optional[List[str]] | NotGiven = NOT_GIVEN,
-        include_terms: Optional[List[str]] | NotGiven = NOT_GIVEN,
-        language: Optional[str] | NotGiven = NOT_GIVEN,
-        max_results: int | NotGiven = NOT_GIVEN,
-        provider: Optional[Literal["google", "bing", "duckduckgo"]] | NotGiven = NOT_GIVEN,
-        published_end_date: Union[str, date, None] | NotGiven = NOT_GIVEN,
-        published_start_date: Union[str, date, None] | NotGiven = NOT_GIVEN,
-        summarize: bool | NotGiven = NOT_GIVEN,
-        topic: Literal["general", "news", "images", "videos", "finance"] | NotGiven = NOT_GIVEN,
-        use_selenium: bool | NotGiven = NOT_GIVEN,
+        country: Optional[str] | Omit = omit,
+        crawl_end_date: Union[str, date, None] | Omit = omit,
+        crawl_start_date: Union[str, date, None] | Omit = omit,
+        exclude_domains: Optional[SequenceNotStr[str]] | Omit = omit,
+        exclude_terms: Optional[SequenceNotStr[str]] | Omit = omit,
+        include_domains: Optional[SequenceNotStr[str]] | Omit = omit,
+        include_terms: Optional[SequenceNotStr[str]] | Omit = omit,
+        language: Optional[str] | Omit = omit,
+        max_results: int | Omit = omit,
+        provider: Optional[Literal["google", "bing", "duckduckgo"]] | Omit = omit,
+        published_end_date: Union[str, date, None] | Omit = omit,
+        published_start_date: Union[str, date, None] | Omit = omit,
+        summarize: bool | Omit = omit,
+        topic: Literal["general", "news", "images", "videos", "finance"] | Omit = omit,
+        use_selenium: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> V1SearchResponse:
         """
         Search endpoint that returns formatted results from external search provider.
@@ -232,7 +232,7 @@ class AsyncV1Resource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> V1GetCreditsResponse:
         """
         Get current credit usage and limits for the authenticated user.
@@ -251,27 +251,27 @@ class AsyncV1Resource(AsyncAPIResource):
         self,
         *,
         query: str,
-        country: Optional[str] | NotGiven = NOT_GIVEN,
-        crawl_end_date: Union[str, date, None] | NotGiven = NOT_GIVEN,
-        crawl_start_date: Union[str, date, None] | NotGiven = NOT_GIVEN,
-        exclude_domains: Optional[List[str]] | NotGiven = NOT_GIVEN,
-        exclude_terms: Optional[List[str]] | NotGiven = NOT_GIVEN,
-        include_domains: Optional[List[str]] | NotGiven = NOT_GIVEN,
-        include_terms: Optional[List[str]] | NotGiven = NOT_GIVEN,
-        language: Optional[str] | NotGiven = NOT_GIVEN,
-        max_results: int | NotGiven = NOT_GIVEN,
-        provider: Optional[Literal["google", "bing", "duckduckgo"]] | NotGiven = NOT_GIVEN,
-        published_end_date: Union[str, date, None] | NotGiven = NOT_GIVEN,
-        published_start_date: Union[str, date, None] | NotGiven = NOT_GIVEN,
-        summarize: bool | NotGiven = NOT_GIVEN,
-        topic: Literal["general", "news", "images", "videos", "finance"] | NotGiven = NOT_GIVEN,
-        use_selenium: bool | NotGiven = NOT_GIVEN,
+        country: Optional[str] | Omit = omit,
+        crawl_end_date: Union[str, date, None] | Omit = omit,
+        crawl_start_date: Union[str, date, None] | Omit = omit,
+        exclude_domains: Optional[SequenceNotStr[str]] | Omit = omit,
+        exclude_terms: Optional[SequenceNotStr[str]] | Omit = omit,
+        include_domains: Optional[SequenceNotStr[str]] | Omit = omit,
+        include_terms: Optional[SequenceNotStr[str]] | Omit = omit,
+        language: Optional[str] | Omit = omit,
+        max_results: int | Omit = omit,
+        provider: Optional[Literal["google", "bing", "duckduckgo"]] | Omit = omit,
+        published_end_date: Union[str, date, None] | Omit = omit,
+        published_start_date: Union[str, date, None] | Omit = omit,
+        summarize: bool | Omit = omit,
+        topic: Literal["general", "news", "images", "videos", "finance"] | Omit = omit,
+        use_selenium: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> V1SearchResponse:
         """
         Search endpoint that returns formatted results from external search provider.

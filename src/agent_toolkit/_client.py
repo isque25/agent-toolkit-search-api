@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import os
-from typing import Any, Union, Mapping
+from typing import TYPE_CHECKING, Any, Mapping
 from typing_extensions import Self, override
 
 import httpx
@@ -11,15 +11,16 @@ import httpx
 from . import _exceptions
 from ._qs import Querystring
 from ._types import (
-    NOT_GIVEN,
     Omit,
     Timeout,
     NotGiven,
     Transport,
     ProxiesTypes,
     RequestOptions,
+    not_given,
 )
 from ._utils import is_given, get_async_library
+from ._compat import cached_property
 from ._version import __version__
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
 from ._exceptions import APIStatusError, AgentToolkitError
@@ -28,7 +29,10 @@ from ._base_client import (
     SyncAPIClient,
     AsyncAPIClient,
 )
-from .resources.api import api
+
+if TYPE_CHECKING:
+    from .resources import api
+    from .resources.api.api import APIResource, AsyncAPIResource
 
 __all__ = [
     "Timeout",
@@ -43,10 +47,6 @@ __all__ = [
 
 
 class AgentToolkit(SyncAPIClient):
-    api: api.APIResource
-    with_raw_response: AgentToolkitWithRawResponse
-    with_streaming_response: AgentToolkitWithStreamedResponse
-
     # client options
     api_key: str
 
@@ -55,7 +55,7 @@ class AgentToolkit(SyncAPIClient):
         *,
         api_key: str | None = None,
         base_url: str | httpx.URL | None = None,
-        timeout: Union[float, Timeout, None, NotGiven] = NOT_GIVEN,
+        timeout: float | Timeout | None | NotGiven = not_given,
         max_retries: int = DEFAULT_MAX_RETRIES,
         default_headers: Mapping[str, str] | None = None,
         default_query: Mapping[str, object] | None = None,
@@ -101,9 +101,19 @@ class AgentToolkit(SyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
-        self.api = api.APIResource(self)
-        self.with_raw_response = AgentToolkitWithRawResponse(self)
-        self.with_streaming_response = AgentToolkitWithStreamedResponse(self)
+    @cached_property
+    def api(self) -> APIResource:
+        from .resources.api import APIResource
+
+        return APIResource(self)
+
+    @cached_property
+    def with_raw_response(self) -> AgentToolkitWithRawResponse:
+        return AgentToolkitWithRawResponse(self)
+
+    @cached_property
+    def with_streaming_response(self) -> AgentToolkitWithStreamedResponse:
+        return AgentToolkitWithStreamedResponse(self)
 
     @property
     @override
@@ -124,9 +134,9 @@ class AgentToolkit(SyncAPIClient):
         *,
         api_key: str | None = None,
         base_url: str | httpx.URL | None = None,
-        timeout: float | Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | Timeout | None | NotGiven = not_given,
         http_client: httpx.Client | None = None,
-        max_retries: int | NotGiven = NOT_GIVEN,
+        max_retries: int | NotGiven = not_given,
         default_headers: Mapping[str, str] | None = None,
         set_default_headers: Mapping[str, str] | None = None,
         default_query: Mapping[str, object] | None = None,
@@ -205,10 +215,6 @@ class AgentToolkit(SyncAPIClient):
 
 
 class AsyncAgentToolkit(AsyncAPIClient):
-    api: api.AsyncAPIResource
-    with_raw_response: AsyncAgentToolkitWithRawResponse
-    with_streaming_response: AsyncAgentToolkitWithStreamedResponse
-
     # client options
     api_key: str
 
@@ -217,7 +223,7 @@ class AsyncAgentToolkit(AsyncAPIClient):
         *,
         api_key: str | None = None,
         base_url: str | httpx.URL | None = None,
-        timeout: Union[float, Timeout, None, NotGiven] = NOT_GIVEN,
+        timeout: float | Timeout | None | NotGiven = not_given,
         max_retries: int = DEFAULT_MAX_RETRIES,
         default_headers: Mapping[str, str] | None = None,
         default_query: Mapping[str, object] | None = None,
@@ -263,9 +269,19 @@ class AsyncAgentToolkit(AsyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
-        self.api = api.AsyncAPIResource(self)
-        self.with_raw_response = AsyncAgentToolkitWithRawResponse(self)
-        self.with_streaming_response = AsyncAgentToolkitWithStreamedResponse(self)
+    @cached_property
+    def api(self) -> AsyncAPIResource:
+        from .resources.api import AsyncAPIResource
+
+        return AsyncAPIResource(self)
+
+    @cached_property
+    def with_raw_response(self) -> AsyncAgentToolkitWithRawResponse:
+        return AsyncAgentToolkitWithRawResponse(self)
+
+    @cached_property
+    def with_streaming_response(self) -> AsyncAgentToolkitWithStreamedResponse:
+        return AsyncAgentToolkitWithStreamedResponse(self)
 
     @property
     @override
@@ -286,9 +302,9 @@ class AsyncAgentToolkit(AsyncAPIClient):
         *,
         api_key: str | None = None,
         base_url: str | httpx.URL | None = None,
-        timeout: float | Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | Timeout | None | NotGiven = not_given,
         http_client: httpx.AsyncClient | None = None,
-        max_retries: int | NotGiven = NOT_GIVEN,
+        max_retries: int | NotGiven = not_given,
         default_headers: Mapping[str, str] | None = None,
         set_default_headers: Mapping[str, str] | None = None,
         default_query: Mapping[str, object] | None = None,
@@ -367,23 +383,55 @@ class AsyncAgentToolkit(AsyncAPIClient):
 
 
 class AgentToolkitWithRawResponse:
+    _client: AgentToolkit
+
     def __init__(self, client: AgentToolkit) -> None:
-        self.api = api.APIResourceWithRawResponse(client.api)
+        self._client = client
+
+    @cached_property
+    def api(self) -> api.APIResourceWithRawResponse:
+        from .resources.api import APIResourceWithRawResponse
+
+        return APIResourceWithRawResponse(self._client.api)
 
 
 class AsyncAgentToolkitWithRawResponse:
+    _client: AsyncAgentToolkit
+
     def __init__(self, client: AsyncAgentToolkit) -> None:
-        self.api = api.AsyncAPIResourceWithRawResponse(client.api)
+        self._client = client
+
+    @cached_property
+    def api(self) -> api.AsyncAPIResourceWithRawResponse:
+        from .resources.api import AsyncAPIResourceWithRawResponse
+
+        return AsyncAPIResourceWithRawResponse(self._client.api)
 
 
 class AgentToolkitWithStreamedResponse:
+    _client: AgentToolkit
+
     def __init__(self, client: AgentToolkit) -> None:
-        self.api = api.APIResourceWithStreamingResponse(client.api)
+        self._client = client
+
+    @cached_property
+    def api(self) -> api.APIResourceWithStreamingResponse:
+        from .resources.api import APIResourceWithStreamingResponse
+
+        return APIResourceWithStreamingResponse(self._client.api)
 
 
 class AsyncAgentToolkitWithStreamedResponse:
+    _client: AsyncAgentToolkit
+
     def __init__(self, client: AsyncAgentToolkit) -> None:
-        self.api = api.AsyncAPIResourceWithStreamingResponse(client.api)
+        self._client = client
+
+    @cached_property
+    def api(self) -> api.AsyncAPIResourceWithStreamingResponse:
+        from .resources.api import AsyncAPIResourceWithStreamingResponse
+
+        return AsyncAPIResourceWithStreamingResponse(self._client.api)
 
 
 Client = AgentToolkit
